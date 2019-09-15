@@ -13,8 +13,6 @@ services:
   - docker
 
 env:
-  - ADDON="ICantBelieveItsNotValetudo"
-  - ADDON="MaryTTS"
   - ADDON="picoTTS"
 
 before_install:
