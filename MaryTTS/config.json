@@ -4,7 +4,7 @@
   "version": "5.2",
   "slug": "marytts",
   "description": "The Mary TTS speach engine as a Hassio-Addon.",
-  "url": "https://github.com/Poeschl/Hassio-Addons/tree/master/MaryTTS",
+  "url": "https://github.com/alpharesearch/Hassio-Addons/tree/master/MaryTTS",
   "webui": "http://[HOST]:[PORT:59125]",
   "arch": [
     "armhf",
@@ -15,7 +15,7 @@
   ],
   "startup": "system",
   "boot": "auto",
-  "image": "poeschl/hassio-marytts-{arch}",
+  "image": "alpharesearch/hassio-marytts-{arch}",
   "ports": {
     "59125/tcp": "59125"
   },
