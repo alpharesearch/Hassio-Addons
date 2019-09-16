@@ -10,7 +10,7 @@ RUN git clone https://github.com/naggety/picotts.git -b master /build && \
 
 FROM $BUILD_FROM AS RUNNING
 
-RUN apk add python3 popt &&\
+RUN apk add python3 popt lame &&\
     python3 -m ensurepip
 
 COPY --from=BUILD /usr/local/bin/pico2wave /usr/local/bin/pico2wave

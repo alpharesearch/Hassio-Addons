@@ -26,11 +26,32 @@ class PicoTTS:
         self._exec_picotts(["-w", outfilename, "-l", lang, '"' + text + '"'])
         print("Create audio file '" + outfilename + "'")
 
+class Lame:
+
+    @staticmethod
+    def _exec_lame(args):
+        cmd = ['lame']
+        cmd.extend(args)
+
+        print("Execute: " + " ".join(cmd))
+        process = Popen(cmd, stdout=PIPE, stderr=STDOUT, shell=False)
+        process.wait()
+        for out in process.stdout:
+            print(str(out))
+        if process.returncode > 0:
+            print("pico2wave returned exit code: '" + str(process.returncode) + "'")
+            exit(process.returncode)
+
+    def generate_mp3_file(self, infilename, outfilename):
+        self._exec_lame([infilename, outfilename])
+        print("Create audio file '" + outfilename + "' from " + infilename)
+
 
 class Handler(BaseHTTPRequestHandler):
     SPEAK_PATH = "/speak"
     PING_PATH = "/ping"
     PICO_TTS = PicoTTS()
+    LAME = Lame()
 
     def do_GET(self):
         paths = {self.SPEAK_PATH: self._speak_path,
@@ -57,13 +78,16 @@ class Handler(BaseHTTPRequestHandler):
             with NamedTemporaryFile(suffix='.wav') as tempFile:
                 self.PICO_TTS.generate_wav_file(tempFile.name, lang, text)
 
-                with open(tempFile.name, 'rb') as audiofile:
-                    wave_data = audiofile.read()
+                with NamedTemporaryFile(suffix='.mp3') as tempFile2:
+                    self.LAME.generate_mp3_file(tempFile.name, tempFile2.name)
 
-                    self.send_response(200)
-                    self.send_header('Content-type', 'audio/wav')
-                    self.end_headers()
-                    self.wfile.write(wave_data)
+                    with open(tempFile2.name, 'rb') as audiofile:
+                        wave_data = audiofile.read()
+
+                        self.send_response(200)
+                        self.send_header('Content-type', 'audio/mp3')
+                        self.end_headers()
+                        self.wfile.write(wave_data)
 
         else:
             self.send_response(400)

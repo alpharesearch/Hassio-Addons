@@ -2,7 +2,7 @@
 
 The [naggety/picotts](https://github.com/naggety/picotts) as Hass.io addon. (Useable on Raspberry Pi 3-)
 
-This addon executes the seach engine behind a webservice. It provides support for all default languages.
+This addon executes the seach engine behind a webservice. It provides support for all default languages. Output is mp3.
 
 ## Requests
 
