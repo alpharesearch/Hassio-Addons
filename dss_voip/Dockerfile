@@ -2,26 +2,14 @@ ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64:9.0.1
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
 
-# Environment variables
-ENV \
-    S6_BEHAVIOUR_IF_STAGE2_FAILS=2 \
-    S6_CMD_WAIT_FOR_SERVICES=1 \
-    TERM="xterm-256color"
-
-ENV LANG C.UTF-8
-
 # Copy root filesystem
 COPY rootfs /
 
 # Setup base
 RUN apk add --no-cache \
     coreutils=8.32-r2 \
-    wget=1.21.1-r1 \
-    sox \
-    pjsua \
-    screen \
-    bc
-    
+    wget=1.21.1-r1
+
 # Build arguments
 ARG BUILD_ARCH
 ARG BUILD_DATE
@@ -38,13 +26,13 @@ LABEL \
     io.hass.arch="${BUILD_ARCH}" \
     io.hass.type="addon" \
     io.hass.version=${BUILD_VERSION} \
-    maintainer="SDeSalve <me@sdesalve.it>" \
+    maintainer="Franck Nijhof <frenck@addons.community>" \
     org.opencontainers.image.title="${BUILD_NAME}" \
     org.opencontainers.image.description="${BUILD_DESCRIPTION}" \
-    org.opencontainers.image.vendor="SDeSalve.it" \
-    org.opencontainers.image.authors="SDeSalve <me@sdesalve.it>" \
-    org.opencontainers.image.licenses="CC Attribution-NonCommercial 4.0 International" \
-    org.opencontainers.image.url="https://sdesalve.it" \
+    org.opencontainers.image.vendor="Home Assistant Community Add-ons" \
+    org.opencontainers.image.authors="Franck Nijhof <frenck@addons.community>" \
+    org.opencontainers.image.licenses="MIT" \
+    org.opencontainers.image.url="https://addons.community" \
     org.opencontainers.image.source="https://github.com/${BUILD_REPOSITORY}" \
     org.opencontainers.image.documentation="https://github.com/${BUILD_REPOSITORY}/blob/main/README.md" \
     org.opencontainers.image.created=${BUILD_DATE} \
