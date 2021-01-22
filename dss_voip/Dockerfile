@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/base/armv7:9.0.1
+ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64:9.0.1
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
 
@@ -15,8 +15,8 @@ COPY rootfs /
 
 # Setup base
 RUN apk add --no-cache \
-    coreutils \
-    wget \
+    coreutils=8.32-r2 \
+    wget=1.21.1-r1 \
     sox \
     pjsua \
     screen \
