@@ -2,26 +2,14 @@ ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64:9.0.1
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
 
-# Environment variables
-ENV \
-    S6_BEHAVIOUR_IF_STAGE2_FAILS=2 \
-    S6_CMD_WAIT_FOR_SERVICES=1 \
-    TERM="xterm-256color"
-
-ENV LANG C.UTF-8
-
 # Copy root filesystem
 COPY rootfs /
 
 # Setup base
 RUN apk add --no-cache \
     coreutils=8.32-r2 \
-    wget=1.21.1-r1 \
-    sox \
-    pjsua \
-    screen \
-    bc
-    
+    wget=1.21.1-r1
+
 # Build arguments
 ARG BUILD_ARCH
 ARG BUILD_DATE
