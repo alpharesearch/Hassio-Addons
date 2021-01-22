@@ -5,6 +5,10 @@ FROM ${BUILD_FROM}
 # Copy root filesystem
 COPY rootfs /
 
+RUN apk add --no-cache \
+    coreutils=8.32-r2 \
+    wget=1.21.1-r1
+
 # Build arguments
 ARG BUILD_ARCH
 ARG BUILD_DATE
